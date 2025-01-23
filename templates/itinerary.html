@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ location }} Itinerary</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+
+<body>
+
+    <div id="itinerary-area">
+        <h1 class="display-5 text-center font-weight-bold">Exploring <span class="location-title"> {{ location }} </span></h1>
+        {% if image_url %}
+        <div class="text-center my-4">
+            <img src="{{ image_url }}" alt="Popular location in {{ location }}" class="img-fluid" width="300">
+        </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-center mb-4">
+            {% for itinerary in itineraries %}
+            <a class="showSingle btn btn-outline-primary mx-2" target="{{ itinerary.day }}">Day {{ itinerary.day }}</a>
+            {% endfor %}
+        </div>
+
+        <section class="cnt">
+            {% for itinerary in itineraries %}
+            <div id="div{{ itinerary.day }}" class="targetDiv">
+                <div class="card mb-4" id="data-box">
+                    <div class="card-body" id="display-data">
+                        <h2 class="card-title">{{ itinerary.title }}</h2>
+                        <hr><br>
+                        <h3 class="card-subtitle mb-2">Morning</h3>
+                        <p class="card-text">{{ itinerary.morning | google_map_link | safe }}</p>
+                        <h3 class="card-subtitle mb-2">Afternoon</h3>
+                        <p class="card-text">{{ itinerary.afternoon | google_map_link | safe }}</p>
+                        <h3 class="card-subtitle mb-2">Evening</h3>
+                        <p class="card-text">{{ itinerary.evening | google_map_link | safe }}</p>
+                        <h3 class="card-subtitle mb-2">Where to stay</h3>
+                        <p class="card-text">Find amazing hotels in <a class="popular-place" href="https://layla.ai/hotels/best-hotels-to-stay-in-{{ location }}" target="_blank">{{ location }}</a></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+
+        <div class="text-center">
+            <a href="{{ url_for('index') }}" class="btn btn-primary" id="back-btn">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://jsuites.net/v4/jsuites.js"></script>
+    <script type="text/javascript" src="../static/js/itinerary.js"></script>
+</body>
+
+</html>

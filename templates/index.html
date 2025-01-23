@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner AI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body class="auth-body-bg">
+    <video autoplay muted loop class="background-video">
+        <source src="../static/video/trip_planner_bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="overlay">
+
+        <div class="container-fluid p-0">
+            <div>
+                <div class="d-flex justify-content-center align-items-center p-4 min-vh-100">
+                    <div>
+                        <div>
+                            <div class="text-center">
+                                <h4 class="text-light my-4 trip-planner-text">Trip Planner AI</h4>
+                            </div>
+                            <form class="form-horizontal" action="{{ url_for('itinerary') }}" method="post"
+                                id="location-form">
+                                {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% endwith %}
+                                <div class="form-group">
+                                    <label class="font-weight-bold text-light">Location:</label>
+                                    <input type="text" id="location" name="location" class="form-control rounded-pill"
+                                        pattern="[A-Za-z,-& ]+" title="Please input characters only" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold text-light">Departure Date:</label>
+                                    <input type="text" id="start_date" name="start_date"
+                                        class="form-control rounded-pill" autocomplete="off" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="font-weight-bold text-light">Arrival Date:</label>
+                                    <input type="text" id="end_date" name="end_date" class="form-control rounded-pill"
+                                        autocomplete="off" required>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <button
+                                        class="btn w-md waves-effect waves-light w-100 py-3 font-weight-bold rounded-pill generate-button"
+                                        type="submit" id="generate-button">Generate</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marquee-row">
+                <div class="marquee-block">
+                    <a href="#" class="marquee-link px-5">Jaipur, Rajasthan</a>
+                    <a href="#" class="marquee-link px-5">Agra, Uttar Pradesh</a>
+                    <a href="#" class="marquee-link px-5">Mumbai, Maharashtra</a>
+                    <a href="#" class="marquee-link px-5">Varanasi, Uttar Pradesh</a>
+                    <a href="#" class="marquee-link px-5">Amritsar, Punjab</a>
+                    <a href="#" class="marquee-link px-5">Rishikesh, Uttarakhand</a>
+                    <a href="#" class="marquee-link px-5">Mysore, Karnataka</a>
+                    <a href="#" class="marquee-link px-5">Leh-Ladakh, Jammu & Kashmir</a>
+                    <a href="#" class="marquee-link px-5">Shimla, Himachal Pradesh</a>
+                    <a href="#" class="marquee-link px-5">Darjeeling, West Bengal</a>
+                    <a href="#" class="marquee-link px-5">Jaisalmer, Rajasthan</a>
+                    <a href="#" class="marquee-link px-5">Hyderabad, Telangana</a>
+                    <a href="#" class="marquee-link px-5">Udaipur, Rajasthan</a>
+                    <a href="#" class="marquee-link px-5">Bangalore, Karnataka</a>
+                    <a href="#" class="marquee-link px-5">Kolkata, West Bengal</a>
+                    <a href="#" class="marquee-link px-5">Ahmedabad, Gujarat</a>
+                    <a href="#" class="marquee-link px-5">Jaipur, Rajasthan</a>
+                    <a href="#" class="marquee-link px-5">Agra, Uttar Pradesh</a>
+                    <a href="#" class="marquee-link px-5">Mumbai, Maharashtra</a>
+                    <a href="#" class="marquee-link px-5">Varanasi, Uttar Pradesh</a>
+                    <a href="#" class="marquee-link px-5">Amritsar, Punjab</a>
+                    <a href="#" class="marquee-link px-5">Rishikesh, Uttarakhand</a>
+                    <a href="#" class="marquee-link px-5">Mysore, Karnataka</a>
+                    <a href="#" class="marquee-link px-5">Leh-Ladakh, Jammu & Kashmir</a>
+                    <a href="#" class="marquee-link px-5">Shimla, Himachal Pradesh</a>
+                    <a href="#" class="marquee-link px-5">Darjeeling, West Bengal</a>
+                    <a href="#" class="marquee-link px-5">Jaisalmer, Rajasthan</a>
+                    <a href="#" class="marquee-link px-5">Hyderabad, Telangana</a>
+                    <a href="#" class="marquee-link px-5">Udaipur, Rajasthan</a>
+                    <a href="#" class="marquee-link px-5">Bangalore, Karnataka</a>
+                    <a href="#" class="marquee-link px-5">Kolkata, West Bengal</a>
+                    <a href="#" class="marquee-link px-5">Ahmedabad, Gujarat</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/index.js"></script>
+
+</body>
+
+</html>
